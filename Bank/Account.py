@@ -17,4 +17,4 @@ class Account:
             print("출금완료")
     
     def printinfo(self):
-        print("AccountNum: %d, name: %s, balance: %d", self.account, self.name, self.balance)
+        print("AccountNum: %d, name: %s, balance: %d" %(self.account, self.name, self.balance))

@@ -2,7 +2,6 @@ from .Account import Account
 
 Account_List = []
 
-
 def whichMenu(input):
     if input == 1:    #계좌개설
         OpenAccount()
@@ -34,12 +33,11 @@ def OpenAccount():
 
 def deposit():
     print("입금 메뉴 입니다.")
-    accountNum = input("입금할 계좌번호: ")
+    accountNum = int(input("입금할 계좌번호: "))
     #계좌번호에 해당하는 정보 출력
-    depositAccount = findAccount()
-    depositAmount = input("입금하실 금액: ")
+    depositAccount = findAccount(accountNum)
+    depositAmount =  int(input("입금하실 금액: "))
     #account 에 대해 Account.py의 deposit함수 실행
-    print(type(depositAccount))
     depositAccount.deposit(depositAmount)
     #계좌번호에 해당하는 정보 출력
     depositAccount.printinfo()
@@ -48,10 +46,10 @@ def deposit():
 
 def withdraw():
     print("출금 메뉴 입니다.")
-    accountNum = input("출금하실 계좌번호: ")
+    accountNum = int(input("출금하실 계좌번호: "))
     #계좌번호에 해당하는 정보 출력
-    withdrawAccount = findAccount()
-    withdrawAmount = input("출금하실 금액: ")
+    withdrawAccount = findAccount(accountNum)
+    withdrawAmount = int(input("출금하실 금액: "))
     #account 에 대해 Account.py의 withdraw함수 실행
     withdrawAccount.withdraw(withdrawAmount)
     #계좌번호에 해당하는 정보 출력
@@ -63,9 +61,9 @@ def checkAll():
     for i in Account_List:
         print(i.printinfo())
 
-def findAccount():
+def findAccount(accountNum):
     for i in Account_List:
         if i.account == accountNum:
             i.printinfo()
             return i
-        return 0
+        return False
