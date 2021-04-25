@@ -16,27 +16,61 @@ def whichMenu(input):
         checkAll()
         return True
     elif input == 5:  #종료하기
+        print("안녕히가세요")
         return False
     else:             #잘못된 input
-        print("잘못된입력입니다")
+        print("1-5 사이의 숫자를 입력해주세요")
         return True
 
 def OpenAccount():
-    print("계좌 개설 메뉴 입니다.")
-    accountNum = int(input("계좌번호: "))
-    name = input("이름: ")
-    initBalance = int(input("초기금액: "))
+    print("")
+    print("======계좌 개설 메뉴======")
+    while(True):
+        try:
+            accountNum = int(input("계좌번호: "))
+            break
+        except(ValueError):
+            print("숫자를 입력하세요")
+    
+    while(True):
+        name = input("이름: ")
+        try:
+            int(name)
+            print("잘못된입력입니다")
+        except:
+            break
+    while(True):
+        try:
+            initBalance = int(input("초기금액: "))
+            break
+        except(ValueError):
+            print("숫자를 입력하세요")
+
     newAccount = Account(accountNum, name, initBalance)
     Account_List.append(newAccount)
     print("**계좌 개설을 완료했습니다. 감사합니다**")
     
 
 def deposit():
-    print("입금 메뉴 입니다.")
-    accountNum = int(input("입금할 계좌번호: "))
+    print("")
+    print("======입금 메뉴======")
+    while(True):
+        try:
+            accountNum = int(input("입금할 계좌번호: "))
+            break
+        except(ValueError):
+            print("숫자를 입력하세요")
     #계좌번호에 해당하는 정보 출력
     depositAccount = findAccount(accountNum)
-    depositAmount =  int(input("입금하실 금액: "))
+    if depositAccount == False: 
+        print ("----없는 계좌 입니다.----")
+        return
+    while(True):
+        try:
+            depositAmount =  int(input("입금하실 금액: "))
+            break
+        except(ValueError):
+            print("숫자를 입력하세요")
     #account 에 대해 Account.py의 deposit함수 실행
     depositAccount.deposit(depositAmount)
     #계좌번호에 해당하는 정보 출력
@@ -45,11 +79,25 @@ def deposit():
 
 
 def withdraw():
-    print("출금 메뉴 입니다.")
-    accountNum = int(input("출금하실 계좌번호: "))
+    print("")
+    print("======출금 메뉴======")
+    while(True):
+        try:
+            accountNum = int(input("출금하실 계좌번호: "))
+            break
+        except(ValueError):
+            print("숫자를 입력하세요")
     #계좌번호에 해당하는 정보 출력
     withdrawAccount = findAccount(accountNum)
-    withdrawAmount = int(input("출금하실 금액: "))
+    if withdrawAccount == False: 
+        print ("----없는 계좌 입니다.----")
+        return
+    while(True):
+        try:
+            withdrawAmount = int(input("출금하실 금액: "))
+            break
+        except(ValueError):
+            print("숫자를 입력하세요")
     #account 에 대해 Account.py의 withdraw함수 실행
     withdrawAccount.withdraw(withdrawAmount)
     #계좌번호에 해당하는 정보 출력
@@ -57,13 +105,14 @@ def withdraw():
     print("**출금을 완료했습니다.**")
 
 def checkAll():
-    print("전체조회 메뉴 입니다.")
+    print("")
+    print("======전체조회 메뉴======")
     for i in Account_List:
-        print(i.printinfo())
+        i.printinfo()
 
 def findAccount(accountNum):
     for i in Account_List:
         if i.account == accountNum:
             i.printinfo()
             return i
-        return False
+    return False

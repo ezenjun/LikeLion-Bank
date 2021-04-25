@@ -9,5 +9,11 @@ while Continue:
     print("4. 전체조회")
     print("5. 종료하기")
     print("=====================")
-    select = int(input("선택할 숫자 입력: "))
+    while(True):
+        try:
+            select = int(input("선택할 숫자 입력: "))
+            break
+        except(ValueError):
+            print("숫자를 입력하세요")
+    
     Continue = Menu.whichMenu(select)
