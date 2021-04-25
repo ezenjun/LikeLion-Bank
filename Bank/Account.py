@@ -15,6 +15,9 @@ class Account:
         else:
             self.balance -= amount
             print("---출금완료---")
+
+    def change(self, name):
+        self.name = name
     
     def printinfo(self):
         print("AccountNum: %d, name: %s, balance: %d" %(self.account, self.name, self.balance))

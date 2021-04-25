@@ -15,7 +15,10 @@ def whichMenu(input):
     elif input == 4:  #전체조회
         checkAll()
         return True
-    elif input == 5:  #종료하기
+    elif input == 5:  #계좌이름변경
+        change()
+        return True 
+    elif input == 6:  #종료하기
         print("안녕히가세요")
         return False
     else:             #잘못된 input
@@ -75,7 +78,6 @@ def deposit():
     depositAccount.deposit(depositAmount)
     #계좌번호에 해당하는 정보 출력
     depositAccount.printinfo()
-    print("**입금을 완료했습니다.**")
 
 
 def withdraw():
@@ -102,13 +104,37 @@ def withdraw():
     withdrawAccount.withdraw(withdrawAmount)
     #계좌번호에 해당하는 정보 출력
     withdrawAccount.printinfo()
-    print("**출금을 완료했습니다.**")
 
 def checkAll():
     print("")
     print("======전체조회 메뉴======")
     for i in Account_List:
         i.printinfo()
+
+def change():
+    print("")
+    print("======계좌이름변경======")
+    while(True):
+        try:
+            accountNum = int(input("이름을 변경할 계좌번호: "))
+            break
+        except(ValueError):
+            print("숫자를 입력하세요")
+    changeAccount = findAccount(accountNum)
+    if changeAccount == False: 
+        print ("----없는 계좌 입니다.----")
+        return  
+    while(True):
+        changename = input("변경할 이름: ")
+        try:
+            int(changename)
+            print("잘못된입력입니다")
+        except:
+            break
+    changeAccount.change(changename) 
+    changeAccount.printinfo()
+
+
 
 def findAccount(accountNum):
     for i in Account_List:
