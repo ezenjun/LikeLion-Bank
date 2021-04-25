@@ -1,7 +1,7 @@
 from .Account import Account                         
 
 Account_List = []
-
+Log = []
 def whichMenu(input):
     if input == 1:    #계좌개설
         OpenAccount()
@@ -16,10 +16,13 @@ def whichMenu(input):
         checkAll()
         return True
     elif input == 5:  #종료하기
+        printLog()
+        return True
+    elif input == 6:  #종료하기
         print("안녕히가세요")
         return False
     else:             #잘못된 input
-        print("1-5 사이의 숫자를 입력해주세요")
+        print("1-6 사이의 숫자를 입력해주세요")
         return True
 
 def OpenAccount():
@@ -102,13 +105,25 @@ def withdraw():
     withdrawAccount.withdraw(withdrawAmount)
     #계좌번호에 해당하는 정보 출력
     withdrawAccount.printinfo()
-    print("**출금을 완료했습니다.**")
+    
 
 def checkAll():
     print("")
     print("======전체조회 메뉴======")
     for i in Account_List:
         i.printinfo()
+
+def printLog():
+    print("")
+    print("======거래내역 조회======")
+    while(True):
+        try:
+            accountNum = int(input("계좌번호: "))
+            break
+        except(ValueError):
+            print("숫자를 입력하세요")
+    logAccount = findAccount(accountNum)
+    logAccount.printLog()
 
 def findAccount(accountNum):
     for i in Account_List:
